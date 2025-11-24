@@ -12,8 +12,12 @@ namespace JoyDrawBot.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "joydraw");
+
             migrationBuilder.CreateTable(
                 name: "users",
+                schema: "joydraw",
                 columns: table => new
                 {
                     telegram_id = table.Column<long>(type: "bigint", nullable: false),
@@ -30,6 +34,7 @@ namespace JoyDrawBot.Migrations
 
             migrationBuilder.CreateTable(
                 name: "contest_entries",
+                schema: "joydraw",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -52,6 +57,7 @@ namespace JoyDrawBot.Migrations
                     table.ForeignKey(
                         name: "fk_contest_entries_users_user_id",
                         column: x => x.user_id,
+                        principalSchema: "joydraw",
                         principalTable: "users",
                         principalColumn: "telegram_id",
                         onDelete: ReferentialAction.Cascade);
@@ -59,6 +65,7 @@ namespace JoyDrawBot.Migrations
 
             migrationBuilder.CreateTable(
                 name: "contest_channels",
+                schema: "joydraw",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -73,6 +80,7 @@ namespace JoyDrawBot.Migrations
                     table.ForeignKey(
                         name: "fk_contest_channels_contest_entries_contest_entry_id",
                         column: x => x.contest_entry_id,
+                        principalSchema: "joydraw",
                         principalTable: "contest_entries",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -80,16 +88,19 @@ namespace JoyDrawBot.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "ix_contest_channels_contest_entry_id",
+                schema: "joydraw",
                 table: "contest_channels",
                 column: "contest_entry_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_contest_entries_results_at_reminder_sent_at",
+                schema: "joydraw",
                 table: "contest_entries",
                 columns: new[] { "results_at", "reminder_sent_at" });
 
             migrationBuilder.CreateIndex(
                 name: "ix_contest_entries_user_id",
+                schema: "joydraw",
                 table: "contest_entries",
                 column: "user_id");
         }
@@ -98,13 +109,16 @@ namespace JoyDrawBot.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "contest_channels");
+                name: "contest_channels",
+                schema: "joydraw");
 
             migrationBuilder.DropTable(
-                name: "contest_entries");
+                name: "contest_entries",
+                schema: "joydraw");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "users",
+                schema: "joydraw");
         }
     }
 }

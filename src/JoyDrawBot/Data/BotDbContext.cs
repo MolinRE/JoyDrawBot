@@ -12,6 +12,7 @@ public sealed class BotDbContext(DbContextOptions<BotDbContext> options) : DbCon
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.HasDefaultSchema("joydraw");
 
         modelBuilder.Entity<UserProfile>(builder =>
         {

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JoyDrawBot.Migrations
 {
     [DbContext(typeof(BotDbContext))]
-    [Migration("20251124134429_InitialCreate")]
+    [Migration("20251124145156_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,6 +20,7 @@ namespace JoyDrawBot.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("joydraw")
                 .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -55,7 +56,7 @@ namespace JoyDrawBot.Migrations
                     b.HasIndex("ContestEntryId")
                         .HasDatabaseName("ix_contest_channels_contest_entry_id");
 
-                    b.ToTable("contest_channels", (string)null);
+                    b.ToTable("contest_channels", "joydraw");
                 });
 
             modelBuilder.Entity("JoyDrawBot.Domain.ContestEntry", b =>
@@ -124,7 +125,7 @@ namespace JoyDrawBot.Migrations
                     b.HasIndex("ResultsAt", "ReminderSentAt")
                         .HasDatabaseName("ix_contest_entries_results_at_reminder_sent_at");
 
-                    b.ToTable("contest_entries", (string)null);
+                    b.ToTable("contest_entries", "joydraw");
                 });
 
             modelBuilder.Entity("JoyDrawBot.Domain.UserProfile", b =>
@@ -163,7 +164,7 @@ namespace JoyDrawBot.Migrations
                     b.HasKey("TelegramId")
                         .HasName("pk_users");
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("users", "joydraw");
                 });
 
             modelBuilder.Entity("JoyDrawBot.Domain.ContestChannel", b =>
