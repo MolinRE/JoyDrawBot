@@ -1,10 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoyDrawBot", "JoyDrawBot\JoyDrawBot.csproj", "{C1C4E4A8-0311-4A3B-B87A-982C62497217}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoyDrawBot", "src\JoyDrawBot\JoyDrawBot.csproj", "{C1C4E4A8-0311-4A3B-B87A-982C62497217}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E400296C-5F43-4428-95A2-2B7AC38A45CF}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Dockerfile = Dockerfile
+		global.json = global.json
 	EndProjectSection
 EndProject
 Global

@@ -14,6 +14,7 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.Services
     .AddOptions<BotOptions>()
     .Bind(builder.Configuration.GetSection("Bot"))
+    .PostConfigure(s => s.Token = builder.Configuration["JOYDRAWBOT_TOKEN"] ?? string.Empty)
     .ValidateDataAnnotations();
 
 builder.Services
@@ -26,13 +27,12 @@ builder.Services
     .Bind(builder.Configuration.GetSection("Parsing"))
     .ValidateDataAnnotations();
 
-var connectionString = builder.Configuration.GetConnectionString("Database")
-    ?? builder.Configuration["Database:ConnectionString"];
+var connectionString = builder.Configuration.GetConnectionString("JoyDrawDb");
 
 if (string.IsNullOrWhiteSpace(connectionString))
 {
     throw new InvalidOperationException(
-        "Не удалось найти строку подключения. Укажите ConnectionStrings:Database в appsettings.json или переменной окружения.");
+        "Не удалось найти строку подключения. Укажите ConnectionStrings:JoyDrawDb в appsettings.json или переменной окружения.");
 }
 
 builder.Services.AddDbContext<BotDbContext>(options =>
@@ -47,7 +47,7 @@ builder.Services.AddSingleton(sp =>
 
     if (string.IsNullOrWhiteSpace(token))
     {
-        throw new InvalidOperationException("В настройках отсутствует Bot:Token.");
+        throw new InvalidOperationException("В настройках отсутствует JOYDRAWBOT_TOKEN.");
     }
 
     return new TelegramBotClient(token);
